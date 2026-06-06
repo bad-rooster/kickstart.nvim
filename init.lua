@@ -205,6 +205,11 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+vim.keymap.set('n', '<leader>gg', function()
+  vim.cmd 'terminal lazygit'
+  vim.cmd 'startinsert'
+end, { desc = '[G]it Lazy[g]it' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -703,7 +708,6 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -713,6 +717,8 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+
+        pyrefly = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -747,8 +753,8 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua',
         'lua_ls',
-        'pyright',
-        'isort',
+        'pyrefly',
+        'ruff',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -763,19 +769,6 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
-            require('lspconfig').pyright.setup {
-              capabilities = capabilities,
-              on_attach = on_attach,
-              settings = {
-                python = {
-                  analysis = {
-                    typeCheckingMode = 'basic', -- or "strict" for more checks
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                  },
-                },
-              },
-            }
           end,
         },
       }
@@ -815,7 +808,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'ruff' },
+        python = { 'ruff_organize_imports', 'ruff_format' },
         c = { 'clang-format' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
