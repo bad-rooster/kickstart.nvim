@@ -252,7 +252,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { 'NMAC427/guess-indent.nvim', pin = true }, -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -381,7 +381,7 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
+      'nvim-telescope/telescope-ui-select.nvim',
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -489,7 +489,7 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim', pin = true },
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -755,6 +755,8 @@ require('lazy').setup({
         'lua_ls',
         'pyrefly',
         'ruff',
+        'prettier',
+        'shfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -813,12 +815,19 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true, 'eslint_d' },
+        html = { 'prettier' },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+        markdown = { 'prettier' },
+        sh = { 'shfmt' },
+        terraform = { 'terraform_fmt' },
       },
     },
   },
 
   { -- Autocompletion
     'saghen/blink.cmp',
+    pin = true,
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
@@ -841,6 +850,7 @@ require('lazy').setup({
           --    https://github.com/rafamadriz/friendly-snippets
           {
             'rafamadriz/friendly-snippets',
+            pin = true,
             config = function()
               require('luasnip.loaders.from_vscode').load()
             end,
@@ -920,16 +930,12 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'loctvl842/monokai-pro.nvim',
-    name = 'monokai-pro',
+    'p00f/alabaster.nvim',
+    pin = true,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
       -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'pro', 'octagon', 'machine', 'ristretto', or 'spectrum'.
-      require('monokai-pro').setup { filter = 'classic' }
-      vim.cmd.colorscheme 'monokai-pro'
+      vim.cmd.colorscheme 'alabaster'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -1039,19 +1045,19 @@ require('lazy').setup({
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
     icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
+      -- cmd = '⌘',
+      -- config = '🛠',
+      -- event = '📅',
+      -- ft = '📂',
+      -- init = '⚙',
+      -- keys = '🗝',
+      -- plugin = '🔌',
+      -- runtime = '💻',
+      -- require = '🌙',
+      -- source = '📄',
+      -- start = '🚀',
+      -- task = '📌',
+      -- lazy = '💤 ',
     },
   },
 })
