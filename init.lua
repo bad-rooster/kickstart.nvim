@@ -169,6 +169,19 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Claude Code integration
+vim.keymap.set('n', '<leader>cc', function()
+  local ref = vim.fn.expand '%:p' .. ':' .. vim.fn.line '.'
+  vim.fn.setreg('+', ref)
+  print('Copied: ' .. ref)
+end, { desc = '[c]opy file:line' })
+
+-- Reload files changed outside nvim (e.g. by Claude Code)
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  command = 'checktime',
+})
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -279,18 +292,6 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -357,6 +358,7 @@ require('lazy').setup({
         { '<leader>r', group = '[R]ow' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>c', group = '[C]laude' },
       },
     },
   },
@@ -1034,7 +1036,7 @@ require('lazy').setup({
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
