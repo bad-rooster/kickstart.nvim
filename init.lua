@@ -957,6 +957,7 @@ require('lazy').setup({
       highlight LineNr guibg=#FFEFC0 ctermbg=230
       highlight CursorLineNr guibg=#FFEFC0 ctermbg=230
       highlight FoldColumn guibg=#FFEFC0 ctermbg=230
+      highlight CursorLine guibg=#EDE8C8 ctermbg=230
       ]]
     end,
   },
