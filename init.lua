@@ -360,6 +360,7 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>c', group = '[C]laude' },
         { '<leader>d', group = '[D]ebugger' },
+        { '<leader>o', group = '[O]cto' },
       },
     },
   },
@@ -949,10 +950,13 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
       vim.cmd [[
-      highlight Normal guibg=none
-      highlight NonText guibg=none
-      highlight Normal ctermbg=none
-      highlight NonText ctermbg=none
+      highlight Normal guibg=#FFEFC0 ctermbg=230
+      highlight NonText guibg=#FFEFC0 ctermbg=230
+      highlight NormalNC guibg=#FFEFC0 ctermbg=230
+      highlight SignColumn guibg=#FFEFC0 ctermbg=230
+      highlight LineNr guibg=#FFEFC0 ctermbg=230
+      highlight CursorLineNr guibg=#FFEFC0 ctermbg=230
+      highlight FoldColumn guibg=#FFEFC0 ctermbg=230
       ]]
     end,
   },
@@ -999,8 +1003,9 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
