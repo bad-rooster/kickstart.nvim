@@ -171,7 +171,7 @@ vim.o.confirm = true
 
 -- Claude Code integration
 vim.keymap.set('n', '<leader>cc', function()
-  local ref = vim.fn.expand '%:p' .. ':' .. vim.fn.line '.'
+  local ref = vim.fn.expand '%:~:.' .. ':' .. vim.fn.line '.'
   vim.fn.setreg('+', ref)
   print('Copied: ' .. ref)
 end, { desc = '[c]opy file:line' })
@@ -181,6 +181,11 @@ vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   command = 'checktime',
 })
+
+-- [[ Buffer Keymaps ]]
+vim.keymap.set('n', '<leader>bn', '<cmd>bnext<cr>', { desc = '[B]uffer [n]ext' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bprevious<cr>', { desc = '[B]uffer [p]revious' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bdelete!<cr>', { desc = '[B]uffer [d]elete' })
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -358,9 +363,9 @@ require('lazy').setup({
         { '<leader>r', group = '[R]ow' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>b', group = '[B]uffer' },
         { '<leader>c', group = '[C]laude' },
         { '<leader>d', group = '[D]ebugger' },
-        { '<leader>o', group = '[O]cto' },
       },
     },
   },
