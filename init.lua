@@ -956,6 +956,37 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+
+      -- Alabaster sets @function etc. to black and only colors the old Vim groups.
+      -- Bridge Tree-sitter and LSP semantic token groups to the Vim equivalents.
+      vim.api.nvim_set_hl(0, '@function', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@function.method', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@function.call', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@function.method.call', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@type', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@type.builtin', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@constant', { link = 'Constant' })
+      vim.api.nvim_set_hl(0, '@constant.builtin', { link = 'Constant' })
+      vim.api.nvim_set_hl(0, '@string', { link = 'String' })
+      vim.api.nvim_set_hl(0, '@keyword', { link = 'Keyword' })
+      vim.api.nvim_set_hl(0, '@operator', { link = 'Operator' })
+      vim.api.nvim_set_hl(0, '@comment', { link = 'Comment' })
+      vim.api.nvim_set_hl(0, '@lsp.type.function', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@lsp.type.method', { link = 'Function' })
+      vim.api.nvim_set_hl(0, '@lsp.type.class', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.type', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.keyword', { link = 'Keyword' })
+      vim.api.nvim_set_hl(0, '@lsp.type.string', { link = 'String' })
+      vim.api.nvim_set_hl(0, '@lsp.type.number', { link = 'Number' })
+      vim.api.nvim_set_hl(0, '@lsp.type.operator', { link = 'Operator' })
+      vim.api.nvim_set_hl(0, '@lsp.type.comment', { link = 'Comment' })
+      vim.api.nvim_set_hl(0, '@lsp.type.namespace', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.enum', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.enumMember', { link = 'Constant' })
+      vim.api.nvim_set_hl(0, '@lsp.type.struct', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.interface', { link = 'Type' })
+      vim.api.nvim_set_hl(0, '@lsp.type.decorator', { link = 'Special' })
+
       vim.cmd [[
       highlight Normal guibg=#FFEFC0 ctermbg=230
       highlight NonText guibg=#FFEFC0 ctermbg=230
